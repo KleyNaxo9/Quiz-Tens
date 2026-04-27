@@ -54,7 +54,6 @@ let ramoActual = "";
 let actual = 0;
 let puntaje = 0;
 let respondido = false;
-let opcionesActuales = [];
 
 /* =========================
    BANCO DE PREGUNTAS
@@ -63,49 +62,30 @@ let opcionesActuales = [];
 const banco = {
 
 anatomia: [
-{p:"Función de los glóbulos rojos", o:["Defensa","Oxígeno","Hormonas","Coagulación"], r:"Oxígeno"},
-{p:"Sistema respiratorio principal", o:["Pulmones","Hígado","Riñones","Páncreas"], r:"Pulmones"},
-{p:"Órgano del sistema nervioso", o:["Cerebro","Corazón","Hígado","Estómago"], r:"Cerebro"},
-{p:"Intercambio gaseoso ocurre en", o:["Alvéolos","Bronquios","Tráquea","Nariz"], r:"Alvéolos"},
-{p:"Hueso más largo del cuerpo", o:["Fémur","Radio","Tibia","Húmero"], r:"Fémur"}
+{p:"Función de los glóbulos rojos", o:["Defensa","Oxígeno","Hormonas","Coagulación"], r:1},
+{p:"Sistema respiratorio principal", o:["Pulmones","Hígado","Riñones","Páncreas"], r:0},
+{p:"Órgano del sistema nervioso", o:["Cerebro","Corazón","Hígado","Estómago"], r:0},
+{p:"Intercambio gaseoso ocurre en", o:["Alvéolos","Bronquios","Tráquea","Nariz"], r:0},
+{p:"Hueso más largo del cuerpo", o:["Fémur","Radio","Tibia","Húmero"], r:0}
 ],
 
 aps: [
-{p:"APS significa", o:["Atención primaria de salud","Privada","UCI","Emergencia"], r:"Atención primaria de salud"},
-{p:"Objetivo APS", o:["Prevención","Cirugía","Urgencia","Hospital"], r:"Prevención"},
-{p:"CESFAM es", o:["Nivel primario","Terciario","UCI","Privado"], r:"Nivel primario"},
-{p:"Vacunación es", o:["Prevención","Tratamiento","Cirugía","Diagnóstico"], r:"Prevención"},
-{p:"Control sano es", o:["Seguimiento","Urgencia","Cirugía","Alta"], r:"Seguimiento"}
+{p:"APS significa", o:["Atención primaria de salud","Privada","UCI","Emergencia"], r:0},
+{p:"Objetivo APS", o:["Prevención","Cirugía","Urgencia","Hospital"], r:0},
+{p:"CESFAM es", o:["Nivel primario","Terciario","UCI","Privado"], r:0},
+{p:"Vacunación es", o:["Prevención","Tratamiento","Cirugía","Diagnóstico"], r:0},
+{p:"Control sano es", o:["Seguimiento","Urgencia","Cirugía","Alta"], r:0}
 ],
 
 farmaco: [
-{p:"Qué es dosis", o:["Cantidad","Tiempo","Tipo","Error"], r:"Cantidad"},
-{p:"RAM significa", o:["Reacción adversa","Registro","Respuesta","Revisión"], r:"Reacción adversa"},
-{p:"Antibióticos actúan sobre", o:["Bacterias","Virus","Dolor","Fiebre"], r:"Bacterias"},
-{p:"Vía IM es", o:["Intramuscular","Intravenosa","Oral","Subcutánea"], r:"Intramuscular"},
-{p:"Paracetamol sirve para", o:["Dolor","Infección","Virus","Cirugía"], r:"Dolor"}
+{p:"Qué es dosis", o:["Cantidad","Tiempo","Tipo","Error"], r:0},
+{p:"RAM significa", o:["Reacción adversa","Registro","Respuesta","Revisión"], r:0},
+{p:"Antibióticos actúan sobre", o:["Bacterias","Virus","Dolor","Fiebre"], r:0},
+{p:"Vía IM es", o:["Intramuscular","Intravenosa","Oral","Subcutánea"], r:0},
+{p:"Paracetamol sirve para", o:["Dolor","Infección","Virus","Cirugía"], r:0}
 ]
 
 };
-
-/* =========================
-   INICIO
-========================= */
-
-function inicio(){
-    document.getElementById("app").innerHTML = `
-        <h2>💛 Para ti 💛</h2>
-
-        <p>
-        Esta pagina la realice con mucho cariño para ti Princesa. Recuerda que eres una Mujer Super Inteligente y Fuerte.💛<br><br>
-        Este pequeño test es para que sigas creciendo en tu carrera.<br><br>
-        No es solo una evaluación… es un recordatorio de lo lejos que puedes llegar.<br><br>
-        TE AMO MI NIÑA.💛<br><br>
-        </p>
-
-        <button onclick="menu()">Siguiente</button>
-    `;
-}
 
 /* =========================
    MENÚ
@@ -142,7 +122,7 @@ function iniciar(ramo){
 }
 
 /* =========================
-   CARGAR
+   CARGAR PREGUNTA
 ========================= */
 
 function cargar(){
@@ -151,13 +131,17 @@ function cargar(){
 
     let p = banco[ramoActual][actual];
 
-    // 🔀 mezclar opciones
-    opcionesActuales = [...p.o].sort(() => Math.random() - 0.5);
+    let opciones = p.o.map((op, i) => ({
+        texto: op,
+        index: i
+    }));
+
+    opciones.sort(() => Math.random() - 0.5);
 
     let html = `<h3>${p.p}</h3>`;
 
-    opcionesActuales.forEach(op => {
-        html += `<button onclick="responder('${op}')">${op}</button>`;
+    opciones.forEach(op => {
+        html += `<button onclick="responder(${op.index})">${op.texto}</button>`;
     });
 
     html += `<button id="nextBtn" disabled onclick="siguiente()">Siguiente</button>`;
@@ -169,7 +153,7 @@ function cargar(){
    RESPONDER
 ========================= */
 
-function responder(opcion){
+function responder(i){
 
     if(respondido) return;
     respondido = true;
@@ -178,20 +162,20 @@ function responder(opcion){
 
     let botones = document.querySelectorAll("#app button");
 
-    botones.forEach(b => {
+    botones.forEach((b, index) => {
 
-        if(b.textContent === p.r){
+        if(index === p.r){
             b.classList.add("correct");
         }
 
-        if(b.textContent === opcion && opcion !== p.r){
+        if(index === i && i !== p.r){
             b.classList.add("wrong");
         }
 
         b.disabled = true;
     });
 
-    if(opcion === p.r){
+    if(i === p.r){
         puntaje++;
     }
 
@@ -229,7 +213,7 @@ function siguiente(){
 }
 
 /* INICIO */
-inicio();
+menu();
 
 </script>
 
