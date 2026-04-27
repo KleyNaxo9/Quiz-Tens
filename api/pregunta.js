@@ -7,14 +7,14 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "gpt-5-mini",
+        model: "gpt-4o-mini",
         messages: [{
           role: "user",
           content: `
 Genera una pregunta tipo TENS Chile con 4 alternativas.
-Responde SOLO en JSON:
+Responde SOLO en JSON válido sin texto extra:
 {
-  "pregunta": "...",
+  "pregunta": "string",
   "opciones": ["A","B","C","D"],
   "correcta": 0
 }`
@@ -23,11 +23,22 @@ Responde SOLO en JSON:
     });
 
     const data = await r.json();
+
+    if (!data.choices) {
+      return res.status(500).json({
+        error: "OpenAI no devolvió respuesta válida",
+        raw: data
+      });
+    }
+
     const texto = data.choices[0].message.content;
 
-    res.status(200).json(JSON.parse(texto));
+    return res.status(200).json(JSON.parse(texto));
 
   } catch (error) {
-    res.status(500).json({ error: "Error en servidor" });
+    return res.status(500).json({
+      error: "Error en servidor",
+      detalle: error.message
+    });
   }
 }
