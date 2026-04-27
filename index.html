@@ -55,63 +55,63 @@ let puntaje = 0;
 let respondido = false;
 
 /* =========================
-   BANCO DE PREGUNTAS (15 CADA RAMO)
+   BANCO 15 PREGUNTAS FIJO
 ========================= */
 
 const banco = {
 
 anatomia: [
-{p:"Función de los glóbulos rojos", o:["Defensa","Oxígeno","Hormonas","Coagulación"], r:1},
-{p:"Sistema respiratorio principal", o:["Pulmones","Hígado","Riñones","Páncreas"], r:0},
-{p:"Órgano del sistema nervioso", o:["Cerebro","Corazón","Hígado","Estómago"], r:0},
-{p:"Intercambio gaseoso ocurre en", o:["Alvéolos","Bronquios","Tráquea","Nariz"], r:0},
-{p:"Hueso más largo del cuerpo", o:["Fémur","Radio","Tibia","Húmero"], r:0},
-{p:"Sistema digestivo inicia en", o:["Boca","Estómago","Intestino","Esófago"], r:0},
-{p:"Unidad básica del cuerpo", o:["Célula","Tejido","Órgano","Sistema"], r:0},
-{p:"Órgano de la vista", o:["Ojo","Oído","Nariz","Lengua"], r:0},
-{p:"Sistema inmune protege contra", o:["Enfermedades","Huesos","Músculos","Nada"], r:0},
-{p:"Columna vertebral pertenece a", o:["Esqueleto","Brazo","Pierna","Cabeza"], r:0},
-{p:"Pulmones pertenecen a", o:["Respiratorio","Digestivo","Circulatorio","Nervioso"], r:0},
-{p:"La sangre transporta", o:["Oxígeno","Huesos","Tejidos","Agua"], r:0},
-{p:"Función del corazón", o:["Bombear sangre","Respirar","Filtrar","Mover"], r:0},
-{p:"Sistema óseo función", o:["Soporte","Respirar","Digestión","Filtrar"], r:0},
-{p:"Músculos permiten", o:["Movimiento","Respirar","Pensar","Filtrar"], r:0}
+{p:"Función glóbulos rojos", o:["Defensa","Oxígeno","Hormonas","Coagulación"], r:1},
+{p:"Órgano respiratorio", o:["Pulmones","Hígado","Riñón","Páncreas"], r:0},
+{p:"Sistema nervioso", o:["Cerebro","Corazón","Hígado","Estómago"], r:0},
+{p:"Intercambio gaseoso", o:["Alvéolos","Bronquios","Tráquea","Nariz"], r:0},
+{p:"Hueso más largo", o:["Fémur","Radio","Tibia","Húmero"], r:0},
+{p:"Unidad del cuerpo", o:["Célula","Tejido","Órgano","Sistema"], r:0},
+{p:"Vista", o:["Ojo","Oído","Nariz","Lengua"], r:0},
+{p:"Protección", o:["Sistema inmune","Digestivo","Óseo","Muscular"], r:0},
+{p:"Columna pertenece a", o:["Esqueleto","Brazo","Pierna","Cabeza"], r:0},
+{p:"Pulmones son", o:["Respiratorio","Digestivo","Circulatorio","Nervioso"], r:0},
+{p:"Sangre transporta", o:["Oxígeno","Huesos","Tejidos","Agua"], r:0},
+{p:"Corazón función", o:["Bombear sangre","Respirar","Filtrar","Mover"], r:0},
+{p:"Sistema óseo", o:["Soporte","Respirar","Digestión","Filtrar"], r:0},
+{p:"Músculos permiten", o:["Movimiento","Pensar","Respirar","Filtrar"], r:0},
+{p:"Digestivo inicia en", o:["Boca","Estómago","Intestino","Esófago"], r:0}
 ],
 
 aps: [
-{p:"APS significa", o:["Atención primaria de salud","Privada","UCI","Emergencia"], r:0},
+{p:"APS significa", o:["Atención primaria","Privada","UCI","Emergencia"], r:0},
 {p:"Objetivo APS", o:["Prevención","Cirugía","Urgencia","Hospital"], r:0},
-{p:"CESFAM es", o:["Nivel primario","Terciario","UCI","Privado"], r:0},
+{p:"CESFAM es", o:["Primario","Terciario","UCI","Privado"], r:0},
 {p:"Vacunación es", o:["Prevención","Tratamiento","Cirugía","Diagnóstico"], r:0},
-{p:"Control sano es", o:["Seguimiento","Urgencia","Cirugía","Alta"], r:0},
+{p:"Control sano", o:["Seguimiento","Urgencia","Cirugía","Alta"], r:0},
 {p:"APS trabaja con", o:["Comunidad","Hospital","UCI","Quirófano"], r:0},
-{p:"Educación en salud busca", o:["Prevenir","Curar","Operar","Internar"], r:0},
-{p:"Control niño sano es", o:["APS","Urgencia","Cirugía","UCI"], r:0},
-{p:"Promoción incluye", o:["Hábitos saludables","Cirugías","Medicamentos","Hospital"], r:0},
-{p:"Prevención evita", o:["Enfermedades","Cirugía","Medicamentos","UCI"], r:0},
-{p:"APS nivel", o:["Primario","Secundario","Terciario","Crítico"], r:0},
+{p:"Educación salud", o:["Prevenir","Curar","Operar","Internar"], r:0},
+{p:"Niño sano", o:["APS","Urgencia","Cirugía","UCI"], r:0},
+{p:"Promoción", o:["Hábitos","Cirugía","Medicamentos","Hospital"], r:0},
+{p:"Prevención evita", o:["Enfermedad","Cirugía","Medicamentos","UCI"], r:0},
+{p:"Nivel APS", o:["Primario","Secundario","Terciario","Crítico"], r:0},
 {p:"CESFAM es", o:["Centro salud","Hospital","Clínica","Laboratorio"], r:0},
-{p:"Atención primaria es", o:["Primer contacto","Especialidad","Urgencia","Cirugía"], r:0},
-{p:"Salud comunitaria es", o:["APS","UCI","Cirugía","Hospital"], r:0},
-{p:"Prevención secundaria detecta", o:["Enfermedad precoz","Cirugía","Muerte","Nada"], r:0}
+{p:"Primer contacto", o:["APS","UCI","Cirugía","Hospital"], r:0},
+{p:"Comunidad", o:["APS","UCI","Cirugía","Hospital"], r:0},
+{p:"Prevención secundaria", o:["Detecta enfermedad","Cirugía","Muerte","Nada"], r:0}
 ],
 
 farmaco: [
-{p:"Qué es dosis", o:["Cantidad","Tiempo","Tipo","Error"], r:0},
-{p:"RAM significa", o:["Reacción adversa","Registro","Respuesta","Revisión"], r:0},
-{p:"Antibióticos actúan sobre", o:["Bacterias","Virus","Dolor","Fiebre"], r:0},
-{p:"Vía IM es", o:["Intramuscular","Intravenosa","Oral","Subcutánea"], r:0},
-{p:"Medicamento vencido", o:["No usar","Usar","Duplicar","Diluir"], r:0},
-{p:"Paracetamol sirve para", o:["Dolor","Infección","Virus","Cirugía"], r:0},
-{p:"Dosis depende de", o:["Paciente","Color","Marca","Hora"], r:0},
-{p:"Antiinflamatorio reduce", o:["Inflamación","Sueño","Vista","Respiración"], r:0},
-{p:"Vía oral es", o:["Boca","Piel","Músculo","Vena"], r:0},
-{p:"IV significa", o:["Intravenosa","Intramuscular","Oral","Subcutánea"], r:0},
-{p:"Genérico es", o:["Equivalente","Falso","Vencido","Diluido"], r:0},
-{p:"Analgesico sirve para", o:["Dolor","Infección","Fiebre","Virus"], r:0},
-{p:"Antipirético baja", o:["Fiebre","Dolor","Presión","Azúcar"], r:0},
-{p:"Farmacología estudia", o:["Medicamentos","Huesos","Sangre","Virus"], r:0},
-{p:"Interacción es", o:["Efecto entre fármacos","Herida","Virus","Diagnóstico"], r:0}
+{p:"Dosis es", o:["Cantidad","Tiempo","Tipo","Error"], r:0},
+{p:"RAM", o:["Reacción adversa","Registro","Respuesta","Revisión"], r:0},
+{p:"Antibióticos", o:["Bacterias","Virus","Dolor","Fiebre"], r:0},
+{p:"Vía IM", o:["Intramuscular","Intravenosa","Oral","Subcutánea"], r:0},
+{p:"Vencido", o:["No usar","Usar","Duplicar","Diluir"], r:0},
+{p:"Paracetamol", o:["Dolor","Infección","Virus","Cirugía"], r:0},
+{p:"Dosis depende", o:["Paciente","Color","Marca","Hora"], r:0},
+{p:"Antiinflamatorio", o:["Inflamación","Sueño","Vista","Respiración"], r:0},
+{p:"Vía oral", o:["Boca","Piel","Músculo","Vena"], r:0},
+{p:"IV", o:["Intravenosa","Intramuscular","Oral","Subcutánea"], r:0},
+{p:"Genérico", o:["Equivalente","Falso","Vencido","Diluido"], r:0},
+{p:"Analgésico", o:["Dolor","Infección","Fiebre","Virus"], r:0},
+{p:"Antipirético", o:["Fiebre","Dolor","Presión","Azúcar"], r:0},
+{p:"Farmacología", o:["Medicamentos","Huesos","Sangre","Virus"], r:0},
+{p:"Interacción", o:["Entre fármacos","Herida","Virus","Diagnóstico"], r:0}
 ]
 
 };
@@ -140,12 +140,12 @@ function menu(){
 ========================= */
 
 function iniciar(ramo){
+
     ramoActual = ramo;
-
-    banco[ramoActual].sort(() => Math.random() - 0.5);
-
     actual = 0;
     puntaje = 0;
+
+    banco[ramoActual].sort(() => Math.random() - 0.5);
 
     cargar();
 }
