@@ -44,7 +44,6 @@ button {
 <body>
 
 <div class="container">
-<h2>💛 Evaluación TENS 💛</h2>
 <div id="app"></div>
 </div>
 
@@ -56,7 +55,7 @@ let puntaje = 0;
 let respondido = false;
 
 /* =========================
-   BANCO DE PREGUNTAS
+   BANCO DE PREGUNTAS (15 CADA RAMO)
 ========================= */
 
 const banco = {
@@ -66,7 +65,17 @@ anatomia: [
 {p:"Sistema respiratorio principal", o:["Pulmones","Hígado","Riñones","Páncreas"], r:0},
 {p:"Órgano del sistema nervioso", o:["Cerebro","Corazón","Hígado","Estómago"], r:0},
 {p:"Intercambio gaseoso ocurre en", o:["Alvéolos","Bronquios","Tráquea","Nariz"], r:0},
-{p:"Hueso más largo del cuerpo", o:["Fémur","Radio","Tibia","Húmero"], r:0}
+{p:"Hueso más largo del cuerpo", o:["Fémur","Radio","Tibia","Húmero"], r:0},
+{p:"Sistema digestivo inicia en", o:["Boca","Estómago","Intestino","Esófago"], r:0},
+{p:"Unidad básica del cuerpo", o:["Célula","Tejido","Órgano","Sistema"], r:0},
+{p:"Órgano de la vista", o:["Ojo","Oído","Nariz","Lengua"], r:0},
+{p:"Sistema inmune protege contra", o:["Enfermedades","Huesos","Músculos","Nada"], r:0},
+{p:"Columna vertebral pertenece a", o:["Esqueleto","Brazo","Pierna","Cabeza"], r:0},
+{p:"Pulmones pertenecen a", o:["Respiratorio","Digestivo","Circulatorio","Nervioso"], r:0},
+{p:"La sangre transporta", o:["Oxígeno","Huesos","Tejidos","Agua"], r:0},
+{p:"Función del corazón", o:["Bombear sangre","Respirar","Filtrar","Mover"], r:0},
+{p:"Sistema óseo función", o:["Soporte","Respirar","Digestión","Filtrar"], r:0},
+{p:"Músculos permiten", o:["Movimiento","Respirar","Pensar","Filtrar"], r:0}
 ],
 
 aps: [
@@ -74,7 +83,17 @@ aps: [
 {p:"Objetivo APS", o:["Prevención","Cirugía","Urgencia","Hospital"], r:0},
 {p:"CESFAM es", o:["Nivel primario","Terciario","UCI","Privado"], r:0},
 {p:"Vacunación es", o:["Prevención","Tratamiento","Cirugía","Diagnóstico"], r:0},
-{p:"Control sano es", o:["Seguimiento","Urgencia","Cirugía","Alta"], r:0}
+{p:"Control sano es", o:["Seguimiento","Urgencia","Cirugía","Alta"], r:0},
+{p:"APS trabaja con", o:["Comunidad","Hospital","UCI","Quirófano"], r:0},
+{p:"Educación en salud busca", o:["Prevenir","Curar","Operar","Internar"], r:0},
+{p:"Control niño sano es", o:["APS","Urgencia","Cirugía","UCI"], r:0},
+{p:"Promoción incluye", o:["Hábitos saludables","Cirugías","Medicamentos","Hospital"], r:0},
+{p:"Prevención evita", o:["Enfermedades","Cirugía","Medicamentos","UCI"], r:0},
+{p:"APS nivel", o:["Primario","Secundario","Terciario","Crítico"], r:0},
+{p:"CESFAM es", o:["Centro salud","Hospital","Clínica","Laboratorio"], r:0},
+{p:"Atención primaria es", o:["Primer contacto","Especialidad","Urgencia","Cirugía"], r:0},
+{p:"Salud comunitaria es", o:["APS","UCI","Cirugía","Hospital"], r:0},
+{p:"Prevención secundaria detecta", o:["Enfermedad precoz","Cirugía","Muerte","Nada"], r:0}
 ],
 
 farmaco: [
@@ -82,7 +101,17 @@ farmaco: [
 {p:"RAM significa", o:["Reacción adversa","Registro","Respuesta","Revisión"], r:0},
 {p:"Antibióticos actúan sobre", o:["Bacterias","Virus","Dolor","Fiebre"], r:0},
 {p:"Vía IM es", o:["Intramuscular","Intravenosa","Oral","Subcutánea"], r:0},
-{p:"Paracetamol sirve para", o:["Dolor","Infección","Virus","Cirugía"], r:0}
+{p:"Medicamento vencido", o:["No usar","Usar","Duplicar","Diluir"], r:0},
+{p:"Paracetamol sirve para", o:["Dolor","Infección","Virus","Cirugía"], r:0},
+{p:"Dosis depende de", o:["Paciente","Color","Marca","Hora"], r:0},
+{p:"Antiinflamatorio reduce", o:["Inflamación","Sueño","Vista","Respiración"], r:0},
+{p:"Vía oral es", o:["Boca","Piel","Músculo","Vena"], r:0},
+{p:"IV significa", o:["Intravenosa","Intramuscular","Oral","Subcutánea"], r:0},
+{p:"Genérico es", o:["Equivalente","Falso","Vencido","Diluido"], r:0},
+{p:"Analgesico sirve para", o:["Dolor","Infección","Fiebre","Virus"], r:0},
+{p:"Antipirético baja", o:["Fiebre","Dolor","Presión","Azúcar"], r:0},
+{p:"Farmacología estudia", o:["Medicamentos","Huesos","Sangre","Virus"], r:0},
+{p:"Interacción es", o:["Efecto entre fármacos","Herida","Virus","Diagnóstico"], r:0}
 ]
 
 };
@@ -96,7 +125,7 @@ function menu(){
     let guardado = localStorage.getItem("ultimoPuntaje");
 
     document.getElementById("app").innerHTML = `
-        <h3>Elige un ramo</h3>
+        <h2>💛 Quiz TENS 💛</h2>
 
         <p>Último puntaje: ${guardado ?? "No registrado"}</p>
 
@@ -122,7 +151,7 @@ function iniciar(ramo){
 }
 
 /* =========================
-   CARGAR PREGUNTA
+   CARGAR
 ========================= */
 
 function cargar(){
